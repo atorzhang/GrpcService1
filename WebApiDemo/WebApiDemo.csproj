@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FJRH.Entity\FJRH.Entity.csproj" />
+    <ProjectReference Include="..\FJRH.IService\FJRH.IService.csproj" />
+    <ProjectReference Include="..\FJRH.Service\FJRH.Service.csproj" />
+  </ItemGroup>
+
+</Project>
