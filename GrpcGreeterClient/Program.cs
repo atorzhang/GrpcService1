@@ -10,10 +10,12 @@ namespace GrpcGreeterClient
     {
         static async Task Main(string[] args)
         {
-            using var chanel = GrpcChannel.ForAddress("https://localhost:5001");
+            using var chanel = GrpcChannel.ForAddress("https://localhost:5001");//使用https
+            using var chanelnossl = GrpcChannel.ForAddress("http://localhost:5101");//使用http
+
             //生成不同服务的客户端
-            var client = new Greeter.GreeterClient(chanel);
-            var client1 = new Greeter1.Greeter1Client(chanel);
+            var client = new Greeter.GreeterClient(chanelnossl);
+            var client1 = new Greeter1.Greeter1Client(chanelnossl);
 
             while (true)
             {

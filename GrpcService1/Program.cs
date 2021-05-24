@@ -23,6 +23,11 @@ namespace GrpcService1
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())//AutoFace依赖注入
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    //服务端设置支持http
+                    webBuilder.ConfigureKestrel(options =>
+                    {
+                        options.ListenLocalhost(5101, o => o.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2);
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }
