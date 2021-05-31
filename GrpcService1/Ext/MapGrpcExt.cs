@@ -15,8 +15,8 @@ namespace GrpcService1
         /// <param name="endpoints"></param>
         public static void MapAllGrpcService(this IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapGrpcService<GreeterService>();
-            endpoints.MapGrpcService<Greeter1Service>();
+            endpoints.MapGrpcService<Greeter1Service>().EnableGrpcWeb().RequireCors("AllowAll"); 
+            endpoints.MapGrpcService<HelloworldService>().EnableGrpcWeb().RequireCors("AllowAll"); ;
         }
     }
 }

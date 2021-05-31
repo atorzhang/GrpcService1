@@ -19,18 +19,23 @@ namespace GrpcGreeterClient
 
             while (true)
             {
+
+              
+
                 Console.WriteLine($"即将调用Greeter.SayHello方法，请输入参数Name:");
                 var name = Console.ReadLine();
-                var response = await client.SayHelloAsync(new HelloRequest { Name = name });
-                Console.WriteLine($"Greeting Response:\r\nMessage:{response.Message}，\r\nStatus:{response.Status}");
+                var response = client.SayHello(new HelloRequest { Name = name });
+                Console.WriteLine($"Greeting Response:\r\nMessage:{response.Message}");
                 Console.ReadLine();
+
 
                 Console.WriteLine($"即将调用Greeter1.SayHello方法，请输入参数Name和Code:");
                 var name1 = Console.ReadLine();
                 var code1 = Console.ReadLine();
-                var response1 = await client1.SayHello1Async(new HelloRequest1 { Name = name1,Code = code1 });
+                var response1 = await client1.SayHello1Async(new HelloRequest1 { Name = name1, Code = code1 });
                 Console.WriteLine($"Greeting1 Response:\r\nMessage:{response1.Message}，\r\nStatus：{response1.Status}");
                 Console.ReadLine();
+
             }
         }
     }

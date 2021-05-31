@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSRedisCore" Version="3.6.6" />
     <PackageReference Include="FJRH.Mongo.Ext" Version="1.0.2" />
   </ItemGroup>
 

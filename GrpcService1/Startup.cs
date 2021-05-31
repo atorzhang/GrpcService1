@@ -34,6 +34,16 @@ namespace GrpcService1
 
             //添加AutoMapper注入
             services.AddAutoMapper(typeof(GrpcService1.AutoMapperProfiles).Assembly);
+
+            //添加跨域
+            services.AddCors(o => o.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+            }));
+
         }
 
 
@@ -70,7 +80,14 @@ namespace GrpcService1
                 #endregion
             }
 
+       
+
             app.UseRouting();
+
+            app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true }); // Must be added between UseRouting and UseEndpoints
+
+            //app.UseGrpcWeb();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
