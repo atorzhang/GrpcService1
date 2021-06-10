@@ -49,7 +49,7 @@ namespace MongoTest
                 //从配置中获取Mongodb连接字符串
                 string connStr = "mongodb://sa:123qwe!%40#@192.168.0.110";
                 //使用初始化方式Mongo扩展单例Client操作
-                var cilent = connStr.InitSingleClient("FJRH_RTM_LOG");
+                var cilent = connStr.GenMongoClient();
                 var operLogColl = cilent.GenMongoCollection<OperLog>();
 
                 var id = Guid.NewGuid().ToString("n");

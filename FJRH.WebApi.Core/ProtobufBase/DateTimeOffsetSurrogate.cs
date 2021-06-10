@@ -3,6 +3,9 @@ using System;
 
 namespace FJRH.WebApi.Core
 {
+    /// <summary>
+    /// protobuf时间转换支持类
+    /// </summary>
     [ProtoContract]
     public class DateTimeOffsetSurrogate
     {

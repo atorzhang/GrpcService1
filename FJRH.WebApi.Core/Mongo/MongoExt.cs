@@ -31,10 +31,6 @@ namespace FJRH.WebApi.Core
     public static class MongoExt
     {
         /// <summary>
-        /// 单例Mongo客户端
-        /// </summary>
-        public static MongoClient SingleClient { get; set; }
-        /// <summary>
         /// 默认连接数据库名
         /// </summary>
         public static string DefaultDbName { get; set; }
@@ -44,29 +40,14 @@ namespace FJRH.WebApi.Core
         /// </summary>
         /// <param name="connStr">链接字符串，mongodb://用户名:密码@ip:端口</param>
         /// <returns></returns>
-        public static MongoClient GenMongoClient(this string connStr)
+        public static MongoClient GenMongoClient(this string connStr,string defaultDbName="")
         {
             var newClient = new MongoClient(connStr);
+            if (!string.IsNullOrEmpty(defaultDbName))
+            {
+                DefaultDbName = defaultDbName;
+            }
             return newClient;
-        }
-
-        /// <summary>
-        /// 初始化单例的Mongodb客户端
-        /// </summary>
-        /// <param name="connStr">链接字符串</param>
-        /// <param name="defaultDbName">默认连接库名</param>
-        public static MongoClient InitSingleClient(this string connStr, string defaultDbName = "")
-        {
-            if (SingleClient == null)
-            {
-                SingleClient = new MongoClient(connStr);
-            }
-            if (string.IsNullOrWhiteSpace(defaultDbName) && string.IsNullOrWhiteSpace(DefaultDbName))
-            {
-                throw new Exception("请初始化一个DbName");
-            }
-            DefaultDbName = defaultDbName;
-            return SingleClient;
         }
 
         /// <summary>

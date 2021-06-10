@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace FJRH.WebApi.Core
 {
+    /// <summary>
+    /// protobuf输出支持类
+    /// </summary>
     public class ProtobufOutputFormatter: OutputFormatter
     {
         private static Lazy<RuntimeTypeModel> model = new Lazy<RuntimeTypeModel>(CreateTypeModel);
@@ -23,7 +26,6 @@ namespace FJRH.WebApi.Core
         {
             ContentType = "application/x-protobuf";
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/x-protobuf"));
-
         }
 
         private static RuntimeTypeModel CreateTypeModel()
@@ -37,7 +39,6 @@ namespace FJRH.WebApi.Core
         public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context)
         {
             var response = context.HttpContext.Response;
-
             Model.Serialize(response.Body, context.Object);
             return Task.FromResult(response);
         }

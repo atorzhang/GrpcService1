@@ -1,17 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using Microsoft.AspNetCore.Mvc.Formatters;
 using ProtoBuf.Meta;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace FJRH.WebApi.Core
 {
+    /// <summary>
+    /// protobuf输入支持类
+    /// </summary>
     public class ProtobufInputFormatter : InputFormatter
     {
         private static Lazy<RuntimeTypeModel> model = new Lazy<RuntimeTypeModel>(CreateTypeModel);
@@ -43,6 +42,5 @@ namespace FJRH.WebApi.Core
             typeModel.Add(typeof(DateTimeOffset), false).SetSurrogate(typeof(DateTimeOffsetSurrogate));
             return typeModel;
         }
-
     }
 }

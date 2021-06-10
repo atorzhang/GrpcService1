@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace FJRH.WebApi.Core
 {
+    /// <summary>
+    /// 获取ip中间件
+    /// </summary>
     public class RealIpMiddleware
     {
         private readonly RequestDelegate _next;

@@ -11,17 +11,20 @@ using Test.WebApi.Models;
 
 namespace Test.WebApi.FIlters
 {
+    /// <summary>
+    /// Api日志记录过滤器
+    /// </summary>
     public class ApiLogFilter : IActionFilter
     {
-        private readonly RHServiceProvider _rHServiceProvider;
+        private readonly MongoProvider _mongoProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
         /// 注入Mongo
         /// </summary>
-        public ApiLogFilter(RHServiceProvider rHServiceProvider, IHttpContextAccessor httpContextAccessor)
+        public ApiLogFilter(MongoProvider mongoProvider, IHttpContextAccessor httpContextAccessor)
         {
-            _rHServiceProvider = rHServiceProvider;
+            this._mongoProvider = mongoProvider;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -33,7 +36,7 @@ namespace Test.WebApi.FIlters
         {
             // Action执行之前,记录参数信息,写入Mongo数据库
             var actionName = context.ActionDescriptor.DisplayName;
-            var requestLogColl = _rHServiceProvider.Mongo.GenMongoCollection<RequestLog>();
+            var requestLogColl = _mongoProvider.Mongo.GenMongoCollection<RequestLog>();
             RequestLog requestLog = new()
             {
                 RequestLogID = Guid.NewGuid().ToString("n"),
@@ -69,7 +72,7 @@ namespace Test.WebApi.FIlters
             {
                 updateLog.ResponseContent = ((ObjectResult)context.Result).Value;
             }
-            var requestLogColl = _rHServiceProvider.Mongo.GenMongoCollection<RequestLog>();
+            var requestLogColl = _mongoProvider.Mongo.GenMongoCollection<RequestLog>();
             requestLogColl.UpdateByEntity(it => it.RequestLogID == requestLogID.ToString(), updateLog);
         }
 
