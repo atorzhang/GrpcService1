@@ -5,8 +5,9 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FreeRedis" Version="0.3.5" />
     <PackageReference Include="MongoDB.Driver" Version="2.12.3" />
-    <PackageReference Include="CSRedisCore" Version="3.6.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="protobuf-net" Version="3.0.101" />
   </ItemGroup>
   <ItemGroup>

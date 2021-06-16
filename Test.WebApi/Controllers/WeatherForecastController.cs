@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Test.WebApi.FIlters;
-using CSRedis;
+using FreeRedis;
 using Test.WebApi.Models;
 using System.Threading;
 
@@ -39,8 +39,8 @@ namespace Test.WebApi.Controllers
             _logger.LogInformation("测试测试:"+ id);
 
             //测试redis读写
-            RedisHelper.Set("test1", "dfas", 600);
-            var ss = RedisHelper.Get("test1");
+            _redisProvider.Client.Set("test1", "dfas", 600);
+            var ss = _redisProvider.Client.Get("test1");
 
             //测试mongodb读写
             var operLogColl = _mongoProvider.Mongo.GenMongoCollection<OperLog>();
