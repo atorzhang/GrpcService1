@@ -1,0 +1,24 @@
+﻿# 监听{port}
+upstream frps{port}.services{
+    {servers}
+}
+server {
+    #端口
+    listen {port} ;
+    server_name {server_name}; 
+    {ssl}
+
+    location / {
+        proxy_pass http://frps{port}.services; 
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade; 
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_connect_timeout {connect_timeout};
+        proxy_send_timeout {send_timeout};
+        proxy_read_timeout {read_timeout};
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
