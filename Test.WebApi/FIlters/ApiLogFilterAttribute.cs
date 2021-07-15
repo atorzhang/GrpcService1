@@ -51,6 +51,7 @@ namespace Test.WebApi.FIlters
                 //Certificate = Newtonsoft.Json.JsonConvert.SerializeObject(_httpContextAccessor.HttpContext.User.Claims),
             };
             requestLogColl.InsertOne(requestLog);
+
             //把当前写入的Mongo的guid写入http管道,后面在根据这id更新Mongo数据
             context.HttpContext.Items.Add("RequestLogID", requestLog.RequestLogID);
         }
@@ -72,8 +73,12 @@ namespace Test.WebApi.FIlters
             {
                 updateLog.ResponseContent = ((ObjectResult)context.Result).Value;
             }
-            var requestLogColl = _mongoProvider.Mongo.GenMongoCollection<RequestLog>();
-            requestLogColl.UpdateByEntity(it => it.RequestLogID == requestLogID.ToString(), updateLog);
+            
+            Task.Run(() =>
+            {
+                var requestLogColl = _mongoProvider.Mongo.GenMongoCollection<RequestLog>();
+                requestLogColl.UpdateByEntity(it => it.RequestLogID == requestLogID.ToString(), updateLog);
+            });
         }
 
         #region 内部方法
@@ -85,7 +90,7 @@ namespace Test.WebApi.FIlters
                 mongoDic.Add(entry.Key, entry.Value);
             }
             return mongoDic;
-        } 
+        }
         #endregion
 
     }

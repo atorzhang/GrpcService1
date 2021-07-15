@@ -13,7 +13,8 @@ using System.Threading;
 namespace Test.WebApi.Controllers
 {
     [Produces("application/x-protobuf", "application/json", "application/xml")]
-    [Route("[controller]")]
+    //[Route("[controller]")]
+    [Route("/FJRH.RTM/ModuleService")]
     [ApiController]
     public class WeatherForecastController : ControllerBase
     {
@@ -68,7 +69,7 @@ namespace Test.WebApi.Controllers
                     if (_redisProvider.SetNx("test", 10000))
                     {
                         _logger.LogInformation("开始事务");
-                        Thread.Sleep(3000);
+                        //Thread.Sleep(3000);
                         _logger.LogInformation("结束事务");
                         break;
                     }
@@ -95,5 +96,33 @@ namespace Test.WebApi.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("GetModuleTree")]
+        public IEnumerable<WeatherForecast> GetOperatings(string id = "")
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
+
+        [HttpPost("Save")]
+        public string Post([FromBody] Module model)
+        {
+            var a = model;
+
+            return "yes";
+        }
+
+
+        //[HttpPost("Save")]
+        //public string Post()
+        //{
+        //    return "yes";
+        //}
     }
 }

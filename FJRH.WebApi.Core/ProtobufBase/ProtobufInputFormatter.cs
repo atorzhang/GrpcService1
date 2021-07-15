@@ -2,6 +2,7 @@
 using ProtoBuf.Meta;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +25,19 @@ namespace FJRH.WebApi.Core
         {
             var type = context.ModelType;
             var request = context.HttpContext.Request;
+            if (request.Headers.ContainsKey("Accept"))
+            {
+                if(request.Headers["Accept"].FirstOrDefault().ToLower() == "application/x-protobuf")
+                {
+                    object result = Model.Deserialize(context.HttpContext.Request.Body, null, type);//默认UTF-8编码
+                    return InputFormatterResult.SuccessAsync(result);
+                }
+            }
             //MediaTypeHeaderValue requestContentType = null;
-            //MediaTypeHeaderValue.TryParse(request.ContentType, out requestContentType);          
-            object result = Model.Deserialize(context.HttpContext.Request.Body,null,type);//默认UTF-8编码
-            return InputFormatterResult.SuccessAsync(result);
+            //MediaTypeHeaderValue.TryParse(request.ContentType, out requestContentType);
+            StreamReader sr = new StreamReader(request.Body);
+            string body =  sr.ReadToEnd();
+            return InputFormatterResult.SuccessAsync(Newtonsoft.Json.JsonConvert.DeserializeObject<object>(body));
         }
 
         public override bool CanRead(InputFormatterContext context)

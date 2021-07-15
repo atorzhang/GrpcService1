@@ -8,18 +8,21 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
   
 #暴露容器端口，此端口与程序运行路径一致，可
-EXPOSE 6000
+EXPOSE 5000
 
 #复制文件到工作目录
 COPY . .
- 
+
+#对图片的支持
+RUN apt-get update -y && apt-get install -y libgdiplus && apt-get clean && ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll
+
 #ENV ：配置系统环境变量，比如程序环境环境等在这里配置（开发、预发、线上环境）
 #这里是配置程序运行端口，如果程序不使用默认的80端口这里一定要设置（程序运行端口）
-ENV ASPNETCORE_URLS http://+:6000
+ENV ASPNETCORE_URLS http://+:5000
 
 #设置时间为中国上海，默认为UTC时间
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 #启动程序
-ENTRYPOINT ["dotnet", "FJRH.CertificationCenter.dll"]
+ENTRYPOINT ["dotnet", "FJRH.RTM.Service.dll"]

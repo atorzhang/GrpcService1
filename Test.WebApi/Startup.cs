@@ -50,7 +50,7 @@ namespace Test.WebApi
             services.AddMvc(options =>
             {
                 options.AddProtobuf();//添加对Protobuf返回类型的支持
-                options.Filters.Add(typeof(ApiLogFilter));//添加日志过滤
+                //options.Filters.Add(typeof(ApiLogFilter));//添加日志过滤
             });
 
             //添加swaager

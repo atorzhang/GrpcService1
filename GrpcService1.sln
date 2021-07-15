@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FJRH.WebApi.Core", "FJRH.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.WebApi", "Test.WebApi\Test.WebApi.csproj", "{D9441C67-5670-4454-8D2F-97D56903BF78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJRH.CertificationCenter", "FJRH.CertificationCenter\FJRH.CertificationCenter.csproj", "{9A980962-62F5-4756-AB27-9EC266CE168E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FJRH.CertificationCenter", "FJRH.CertificationCenter\FJRH.CertificationCenter.csproj", "{9A980962-62F5-4756-AB27-9EC266CE168E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
